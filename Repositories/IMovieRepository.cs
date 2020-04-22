@@ -44,6 +44,10 @@ namespace CGIBack.Repositories
 		}
 		public List<MovieDto> GetMoviesByCategoryId(string categorieIds)
 		{
+			if (categorieIds == null)
+			{
+				return new List<MovieDto>();
+			}
 			if (categorieIds.Length == 0)
 			{
 				return new List<MovieDto>();

@@ -14,3 +14,10 @@ That way you won't have to install Microsoft IIS or Microsoft Dev Server and it 
 ## Structure
 
 <img align="left" src="https://github.com/aneelm/images/blob/master/CGIInternship/backProjectStructure.png?raw=true">
+
+**Controllers/MoviesController.cs** handles http requests made to different urls and responds with the correct information. 
+For example GET request to "Movies/Details/5" returns the movie with the id of 5, if it exists.
+
+**Data/CategoryList.cs" and "Data/MoviesList.cs"** currently just holds the information about movies and categories, since there is not an actual database attached.
+
+**Dto/MovieDto.cs** is the "data transfer object" for Movie objects.

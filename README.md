@@ -11,4 +11,6 @@ That way you won't have to install Microsoft IIS or Microsoft Dev Server and it 
 3. Run Program.cs using either IDE
 4. Localhost server should be running on https://localhost:5001/
 
-## Other stuff
+## Structure
+
+<img align="left" src="https://github.com/aneelm/images/blob/master/CGIInternship/backProjectStructure.png?raw=true">

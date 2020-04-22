@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CGIBack.Services;
-using CGIBack.Models;
+﻿using System.Collections.Generic;
 using CGIBack.Dto;
-using Microsoft.AspNetCore.Http;
+using CGIBack.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CGIBack.Controllers
@@ -45,6 +40,6 @@ namespace CGIBack.Controllers
         {
             return _movieService.GetMoviesByCategoryId(categorieIds);
         }
-            
+
     }
 }

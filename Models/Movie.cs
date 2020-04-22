@@ -21,6 +21,6 @@ namespace CGIBack.Models
 
         [Column(TypeName = "decimal(5, 2)")]
         public decimal Rating { get; set; }
-        public string Description { get; set;}
+        public string Description { get; set; }
     }
 }

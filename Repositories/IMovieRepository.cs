@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using CGIBack.Models;
 using CGIBack.Data;
-using System.Security.Policy;
 using CGIBack.Dto;
+using CGIBack.Models;
 using CGIBack.Services;
 
 namespace CGIBack.Repositories
@@ -26,11 +24,11 @@ namespace CGIBack.Repositories
 		readonly List<Movie> Movies = new MoviesList().Movies;
 		private ICategoryService _categoryService;
 
-		public void SaveService(ICategoryService CategoryService) 
+		public void SaveService(ICategoryService CategoryService)
 		{
 			_categoryService = CategoryService;
 		}
-		public List<MovieDto> GetMovies() 
+		public List<MovieDto> GetMovies()
 		{
 			var movies = from movie in Movies
 						 select new MovieDto()
@@ -53,36 +51,40 @@ namespace CGIBack.Repositories
 			List<string> numberStringList = categorieIds.Split(",").Select(p => p.Trim()).ToList();
 			List<int> categorieIdsList = numberStringList.Select(s => Int32.Parse(s)).ToList();
 			HashSet<Movie> movies = new HashSet<Movie>();
-			foreach (int id in categorieIdsList) 
+			foreach (int id in categorieIdsList)
 			{
 				movies.UnionWith(Movies.Where(s => s.CategoryIds.Contains(id)).ToHashSet());
 			}
 			var moviesDto = from movie in movies
-					 select new MovieDto()
-					 {
-						 Id = movie.Id,
-						 Title = movie.Title,
-						 ReleaseDate = movie.ReleaseDate,
-						 Categories = _categoryService.GetCategoryNamesById(movie.CategoryIds),
-						 Rating = movie.Rating,
-						 Description = movie.Description
-					 };
+							select new MovieDto()
+							{
+								Id = movie.Id,
+								Title = movie.Title,
+								ReleaseDate = movie.ReleaseDate,
+								Categories = _categoryService.GetCategoryNamesById(movie.CategoryIds),
+								Rating = movie.Rating,
+								Description = movie.Description
+							};
 			return moviesDto.ToList();
 		}
 
 		public MovieDto GetMoviesById(int id)
 		{
 			Movie movie = Movies.Where(s => s.Id.Equals(id)).FirstOrDefault();
-			var movieDto = new MovieDto()
+			if (movie != null)
 			{
-				Id = movie.Id,
-				Title = movie.Title,
-				ReleaseDate = movie.ReleaseDate,
-				Categories = _categoryService.GetCategoryNamesById(movie.CategoryIds),
-				Rating = movie.Rating,
-				Description = movie.Description
-			};
-			return movieDto;
+				var movieDto = new MovieDto()
+				{
+					Id = movie.Id,
+					Title = movie.Title,
+					ReleaseDate = movie.ReleaseDate,
+					Categories = _categoryService.GetCategoryNamesById(movie.CategoryIds),
+					Rating = movie.Rating,
+					Description = movie.Description
+				};
+				return movieDto;
+			}
+			return new MovieDto();
 		}
 
 		public List<MovieDto> GetMoviesByTitle(string searchString)
@@ -91,15 +93,15 @@ namespace CGIBack.Repositories
 			{
 				var movies = Movies.Where(s => s.Title.ToLower().Contains(searchString)).ToList();
 				var moviesDto = from movie in movies
-						 select new MovieDto()
-						 {
-							 Id = movie.Id,
-							 Title = movie.Title,
-							 ReleaseDate = movie.ReleaseDate,
-							 Categories = _categoryService.GetCategoryNamesById(movie.CategoryIds),
-							 Rating = movie.Rating,
-							 Description = movie.Description
-						 };
+								select new MovieDto()
+								{
+									Id = movie.Id,
+									Title = movie.Title,
+									ReleaseDate = movie.ReleaseDate,
+									Categories = _categoryService.GetCategoryNamesById(movie.CategoryIds),
+									Rating = movie.Rating,
+									Description = movie.Description
+								};
 				return moviesDto.ToList();
 			}
 			return new List<MovieDto>();

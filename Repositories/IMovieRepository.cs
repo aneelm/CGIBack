@@ -90,7 +90,7 @@ namespace CGIBack.Repositories
 			if (!String.IsNullOrEmpty(searchString))
 			{
 				var movies = Movies.Where(s => s.Title.ToLower().Contains(searchString)).ToList();
-				var moviesDto = from movie in Movies
+				var moviesDto = from movie in movies
 						 select new MovieDto()
 						 {
 							 Id = movie.Id,
